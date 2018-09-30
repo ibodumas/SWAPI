@@ -19,16 +19,18 @@ def status_checker(req: requests.get):
 url = "https://swapi.co/api/people"
 results = []
 count = 0
-# loop through all the pages
-while url:
-    req = requests.get(url=url, allow_redirects=True)
-    if status_checker(req):
-        data = req.json()
-        results.extend(data['results'])
-        count += data['count']
-        # get the url of the next page
-        url = data['next']
 
-if results:
-    with open('SWAP_data.txt', 'w') as f:
-        f.write(json.dumps({'count': count, 'results': results}))
+if __name__ == "__main__":
+    # loop through all the pages
+    while url:
+        req = requests.get(url=url, allow_redirects=True)
+        if status_checker(req):
+            data = req.json()
+            results.extend(data["results"])
+            count += data["count"]
+            # get the url of the next page
+            url = data["next"]
+
+    if results:
+        with open("SWAP_data.txt", "w") as f:
+            f.write(json.dumps({"count": count, "results": results}))
